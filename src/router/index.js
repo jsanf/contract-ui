@@ -87,7 +87,13 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user' }
       }
     ]
-  }
+  },
+  // 合同签署页面
+  {
+    path: '/signPage',
+    component: () => import('@/views/signPage.vue'),
+    hidden: true
+  },
 ]
 
 // 动态路由，基于用户权限动态去加载

@@ -31,7 +31,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['constract:template:add']"
+          v-hasPermi="['contract:template:add']"
         >新增</el-button>
       </el-col>
 <!--      <el-col :span="1.5">-->
@@ -42,7 +42,7 @@
 <!--          size="mini"-->
 <!--          :disabled="single"-->
 <!--          @click="handleUpdate"-->
-<!--          v-hasPermi="['constract:template:edit']"-->
+<!--          v-hasPermi="['contract:template:edit']"-->
 <!--        >修改</el-button>-->
 <!--      </el-col>-->
 <!--      <el-col :span="1.5">-->
@@ -53,7 +53,7 @@
 <!--          size="mini"-->
 <!--          :disabled="multiple"-->
 <!--          @click="handleDelete"-->
-<!--          v-hasPermi="['constract:template:remove']"-->
+<!--          v-hasPermi="['contract:template:remove']"-->
 <!--        >删除</el-button>-->
 <!--      </el-col>-->
 <!--      <el-col :span="1.5">-->
@@ -63,14 +63,14 @@
 <!--          icon="el-icon-download"-->
 <!--          size="mini"-->
 <!--          @click="handleExport"-->
-<!--          v-hasPermi="['constract:template:export']"-->
+<!--          v-hasPermi="['contract:template:export']"-->
 <!--        >导出</el-button>-->
 <!--      </el-col>-->
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="templateList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
+<!--      <el-table-column type="selection" width="55" align="center" />-->
 <!--      <el-table-column label="" align="center" prop="templateId" />-->
       <el-table-column label="模版名称" align="center" prop="templateName" />
       <el-table-column label="模版上传时间" align="center" prop="createTime" />
@@ -102,7 +102,7 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['constract:template:edit']"
+            v-hasPermi="['contract:template:edit']"
           >修改</el-button>
           <el-button
             disabled
@@ -110,7 +110,7 @@
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['constract:template:remove']"
+            v-hasPermi="['contract:template:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import { listTemplate, getTemplate, delTemplate, addTemplate, updateTemplate, changeContractTemplateStatus } from "@/api/constract/template";
+import { listTemplate, getTemplate, delTemplate, addTemplate, updateTemplate, changeContractTemplateStatus } from "@/api/contract/template";
 import { getToken } from "@/utils/auth";
 export default {
   name: "Template",
@@ -451,7 +451,7 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('constract/template/export', {
+      this.download('contract/template/export', {
         ...this.queryParams
       }, `template_${new Date().getTime()}.xlsx`)
     }

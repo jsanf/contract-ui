@@ -224,11 +224,9 @@ export default {
 
         this.openId = res.data.openid
         this.nickname =  res.data.nickname
-
+        this.goHomeUrl();
       }).catch(e => {
         console.log(e)
-      }).finally(e => {
-        this.goHomeUrl();
       })
     },
     getContractTemplate(data) {

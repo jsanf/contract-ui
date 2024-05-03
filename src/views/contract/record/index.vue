@@ -343,8 +343,6 @@ export default {
 
       try {
         await Promise.all(fileUrls.map(async url => {
-          console.log(url)
-          debugger
           try {
             const response = await axios.get(url, { responseType: 'blob' });
             // ... 其他处理逻辑 ...

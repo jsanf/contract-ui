@@ -7,7 +7,8 @@
           placeholder="请选择合同模版"
           clearable
         >
-          <el-option v-for="template in templateList" :key="template.templateId" :label="template.templateName" :value="template.templateId"/>
+          <el-option v-for="template in templateList" :key="template.templateId" :label="template.templateName"
+                     :value="template.templateId"/>
         </el-select>
       </el-form-item>
       <el-form-item label="签署时间" prop="signTime">
@@ -18,14 +19,14 @@
                         placeholder="请选择签署时间">
         </el-date-picker>
       </el-form-item>
-<!--      <el-form-item label="签署人" prop="signUser">-->
-<!--        <el-input-->
-<!--          v-model="queryParams.signUser"-->
-<!--          placeholder="请输入签署人"-->
-<!--          clearable-->
-<!--          @keyup.enter.native="handleQuery"-->
-<!--        />-->
-<!--      </el-form-item>-->
+      <!--      <el-form-item label="签署人" prop="signUser">-->
+      <!--        <el-input-->
+      <!--          v-model="queryParams.signUser"-->
+      <!--          placeholder="请输入签署人"-->
+      <!--          clearable-->
+      <!--          @keyup.enter.native="handleQuery"-->
+      <!--        />-->
+      <!--      </el-form-item>-->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -33,38 +34,38 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-<!--      <el-col :span="1.5">-->
-<!--        <el-button-->
-<!--          type="primary"-->
-<!--          plain-->
-<!--          icon="el-icon-plus"-->
-<!--          size="mini"-->
-<!--          @click="handleAdd"-->
-<!--          v-hasPermi="['contract:record:add']"-->
-<!--        >新增</el-button>-->
-<!--      </el-col>-->
-<!--      <el-col :span="1.5">-->
-<!--        <el-button-->
-<!--          type="success"-->
-<!--          plain-->
-<!--          icon="el-icon-edit"-->
-<!--          size="mini"-->
-<!--          :disabled="single"-->
-<!--          @click="handleUpdate"-->
-<!--          v-hasPermi="['contract:record:edit']"-->
-<!--        >修改</el-button>-->
-<!--      </el-col>-->
-<!--      <el-col :span="1.5">-->
-<!--        <el-button-->
-<!--          type="danger"-->
-<!--          plain-->
-<!--          icon="el-icon-delete"-->
-<!--          size="mini"-->
-<!--          :disabled="multiple"-->
-<!--          @click="handleDelete"-->
-<!--          v-hasPermi="['contract:record:remove']"-->
-<!--        >删除</el-button>-->
-<!--      </el-col>-->
+      <!--      <el-col :span="1.5">-->
+      <!--        <el-button-->
+      <!--          type="primary"-->
+      <!--          plain-->
+      <!--          icon="el-icon-plus"-->
+      <!--          size="mini"-->
+      <!--          @click="handleAdd"-->
+      <!--          v-hasPermi="['contract:record:add']"-->
+      <!--        >新增</el-button>-->
+      <!--      </el-col>-->
+      <!--      <el-col :span="1.5">-->
+      <!--        <el-button-->
+      <!--          type="success"-->
+      <!--          plain-->
+      <!--          icon="el-icon-edit"-->
+      <!--          size="mini"-->
+      <!--          :disabled="single"-->
+      <!--          @click="handleUpdate"-->
+      <!--          v-hasPermi="['contract:record:edit']"-->
+      <!--        >修改</el-button>-->
+      <!--      </el-col>-->
+      <!--      <el-col :span="1.5">-->
+      <!--        <el-button-->
+      <!--          type="danger"-->
+      <!--          plain-->
+      <!--          icon="el-icon-delete"-->
+      <!--          size="mini"-->
+      <!--          :disabled="multiple"-->
+      <!--          @click="handleDelete"-->
+      <!--          v-hasPermi="['contract:record:remove']"-->
+      <!--        >删除</el-button>-->
+      <!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -73,31 +74,32 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['contract:record:export']"
-        >批量导出合同</el-button>
+        >批量导出合同
+        </el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="recordList" @selection-change="handleSelectionChange">
-<!--      <el-table-column type="selection" width="55" align="center" />-->
-<!--      <el-table-column label="序号" align="center" prop="id" />-->
-      <el-table-column label="合同模版" align="center" prop="templateName" />
+      <!--      <el-table-column type="selection" width="55" align="center" />-->
+      <!--      <el-table-column label="序号" align="center" prop="id" />-->
+      <el-table-column label="合同模版" align="center" prop="templateName"/>
       <el-table-column label="签署日期" align="center" prop="signTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.signTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="微信uuid" align="center" prop="openid" />
-      <el-table-column label="微信昵称" align="center" prop="nickname" />
+      <el-table-column label="微信uuid" align="center" prop="openid"/>
+      <el-table-column label="微信昵称" align="center" prop="nickname"/>
       <el-table-column label="微信头像" align="center" prop="headImgUrl">
         <template slot-scope="scope">
-          <el-image style="width: 50px" :src="scope.row.headImgUrl" />
+          <el-image style="width: 50px" :src="scope.row.headImgUrl"/>
         </template>
       </el-table-column>
-      <el-table-column label="合同" align="center" prop="contractUrl" >
+      <el-table-column label="合同" align="center" prop="contractUrl">
         <template slot-scope="scope">
           <el-link :href="scope.row.contractUrl" target="_blank">
-            <el-button type="text" > 合同预览</el-button>
+            <el-button type="text"> 合同预览</el-button>
           </el-link>
         </template>
       </el-table-column>
@@ -109,7 +111,8 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['contract:record:edit']"
-          >修改</el-button>
+          >修改
+          </el-button>
           <el-button
             disabled
             size="mini"
@@ -117,7 +120,8 @@
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['contract:record:remove']"
-          >删除</el-button>
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -134,7 +138,7 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="关联的合同模版" prop="templateId">
-          <el-input v-model="form.templateId" placeholder="请输入关联的合同模版" />
+          <el-input v-model="form.templateId" placeholder="请输入关联的合同模版"/>
         </el-form-item>
         <el-form-item label="签署时间" prop="signTime">
           <el-date-picker clearable
@@ -145,10 +149,10 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="签署人" prop="signUser">
-          <el-input v-model="form.signUser" placeholder="请输入签署人" />
+          <el-input v-model="form.signUser" placeholder="请输入签署人"/>
         </el-form-item>
         <el-form-item label="合同地址" prop="contractUrl">
-          <el-input v-model="form.contractUrl" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.contractUrl" type="textarea" placeholder="请输入内容"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -160,8 +164,12 @@
 </template>
 
 <script>
-import { listRecord, getRecord, delRecord, addRecord, updateRecord } from "@/api/contract/record";
+import {listRecord, getRecord, delRecord, addRecord, updateRecord, getExportUrl} from "@/api/contract/record";
 import {listTemplate} from "@/api/contract/template";
+
+import JSZip from 'jszip';
+import axios from 'axios';
+import { saveAs } from 'file-saver';
 
 export default {
   name: "Record",
@@ -186,7 +194,7 @@ export default {
       // 是否显示弹出层
       open: false,
       // 合同模版
-      templateList:[],
+      templateList: [],
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -201,16 +209,16 @@ export default {
       // 表单校验
       rules: {
         templateId: [
-          { required: true, message: "关联的合同模版不能为空", trigger: "blur" }
+          {required: true, message: "关联的合同模版不能为空", trigger: "blur"}
         ],
         signTime: [
-          { required: true, message: "签署时间不能为空", trigger: "blur" }
+          {required: true, message: "签署时间不能为空", trigger: "blur"}
         ],
         signUser: [
-          { required: true, message: "签署人不能为空", trigger: "blur" }
+          {required: true, message: "签署人不能为空", trigger: "blur"}
         ],
         contractUrl: [
-          { required: true, message: "合同地址不能为空", trigger: "blur" }
+          {required: true, message: "合同地址不能为空", trigger: "blur"}
         ],
       }
     };
@@ -265,7 +273,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.id)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
@@ -307,19 +315,59 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除签署记录编号为"' + ids + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除签署记录编号为"' + ids + '"的数据项？').then(function () {
         return delRecord(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+      }).catch(() => {
+      });
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('contract/record/export', {
-        ...this.queryParams
-      }, `合同_${new Date().getTime()}.zip`)
-    }
+      getExportUrl(this.queryParams).then(res => {
+        console.log(res)
+        if (res.urlList.length > 0) {
+          console.log(res.urlList.length)
+          console.log(123)
+          this.downloadFilesAsZip(res.urlList)
+        }
+      }).catch(err => {
+      })
+      // this.download('contract/record/export', {
+      //   ...this.queryParams
+      // }, `合同_${new Date().getTime()}.zip`)
+    },
+    async downloadFilesAsZip(fileUrls) {
+      const zip = new JSZip();
+
+      try {
+        await Promise.all(fileUrls.map(async url => {
+          console.log(url)
+          debugger
+          try {
+            const response = await axios.get(url, { responseType: 'blob' });
+            // ... 其他处理逻辑 ...
+            // const response = await axios.get(url, { responseType: 'blob' });
+            const fileName = this.extractFileNameFromUrl(url);
+            zip.file(fileName, response.data, { binary: true });
+          } catch (error) {
+            console.error('请求失败：', error);
+            // 在这里处理错误，例如显示错误消息给用户
+          }
+
+        }));
+
+        const content = await zip.generateAsync({ type: 'blob' });
+        saveAs(content, '合同压缩包.zip');
+      } catch (error) {
+        console.error('压缩下载失败', error);
+      }
+    },
+    extractFileNameFromUrl(url) {
+      // 从URL中提取文件名的逻辑，这里简单示例
+      return url.split('/').pop();
+    },
   }
 };
 </script>

@@ -42,3 +42,13 @@ export function delRecord(id) {
     method: 'delete'
   })
 }
+
+
+// 删除签署记录
+export function getExportUrl(data) {
+  return request({
+    url: '/contract/record/export',
+    method: 'post',
+    data: data
+  })
+}

@@ -102,7 +102,7 @@ export default {
           .then(blob => {
             // 创建FormData对象
             let formData = new FormData();
-            formData.append('file', blob, this.openId + '的合同.pdf');
+            formData.append('file', blob, this.nickname + '的合同.pdf');
             formData.append('openid', this.openId);
             // 使用axios或其他HTTP库将文件上传到服务器
             saveContract(formData).then(response => {

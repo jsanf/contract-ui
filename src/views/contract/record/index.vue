@@ -318,7 +318,7 @@ export default {
     handleExport() {
       this.download('contract/record/export', {
         ...this.queryParams
-      }, `record_${new Date().getTime()}.xlsx`)
+      }, `合同_${new Date().getTime()}.zip`)
     }
   }
 };

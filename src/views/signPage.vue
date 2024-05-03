@@ -219,7 +219,7 @@ export default {
     getWxUserInfo(code) {
       getWxUserInfo(code).then(res => {
         Cookies.set("wxUserInfoOpenId", res.data.openid);
-        Cookies.set("wxUserInfoNickName", res.data.nickname);
+        Cookies.set("wxUserInfoNickname", res.data.nickname);
 
         this.openId = res.data.openid
         this.nickname =  res.data.nickname

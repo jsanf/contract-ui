@@ -83,7 +83,6 @@ export default {
     // 获取当前开启的合同模版
     await this.getContractTemplate({openid: this.openId});
 
-    this.signButton = false
 
     // 在组件挂载后初始化签名画布
     this.originWidth = this.$refs.canvas.width
@@ -236,8 +235,9 @@ export default {
 
         if (res.data.type === "2") {
           this.signButton = true;
+        } else {
+          this.signButton = false
         }
-
       }).catch(error => {
       });
     },

@@ -73,7 +73,7 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['contract:record:export']"
-        >全部导出</el-button>
+        >批量导出合同</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>

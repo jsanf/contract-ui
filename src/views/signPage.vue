@@ -332,6 +332,10 @@ export default {
   left: 0; /* 将按钮放置在页面水平中间 */
 }
 
+.primaryButton {
+  margin-bottom: 20px;
+}
+
 .scalable {
   transition: transform 0.3s ease;
 }

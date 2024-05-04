@@ -4,16 +4,16 @@
     <div class="backGroud" v-if="showGround" @click="closeSign"></div>
 
     <div class="landscape-signature" :hidden="showSignCanvas">
-      <canvas ref="canvas" class="landscape-canvas"></canvas>
+      <canvas ref="canvas"  id="cvs" class="landscape-canvas"></canvas>
       <br>
-      <el-button @click="clearSignature" type="danger">清除</el-button>
+      <el-button @click="clearSignature"  type="danger">清除</el-button>
       <el-button @click="saveSignature" type="primary">确认</el-button>
       <div style="margin-bottom: 10px"></div>
     </div>
-    <div class="pdf-preview scalable">
+    <div class="pdf-preview scalable" id="myDiv">
       <pdf
         :src="this.templateUrl"
-        :scale="2"
+        :scale="20"
         :enable-browser-style="true"
       ></pdf>
     </div>
@@ -65,7 +65,31 @@ export default {
   },
   async mounted() {
 
+    var myDiv = document.getElementById('myDiv');
+    var startDistance = 0;
+    var scale = 1;
 
+    myDiv.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 2) {
+        startDistance = getDistance(e.touches[0], e.touches[1]);
+      }
+    });
+
+    myDiv.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 2) {
+        var moveDistance = getDistance(e.touches[0], e.touches[1]);
+        var scaleChange = moveDistance / startDistance;
+        scale *= scaleChange;
+        myDiv.style.transform = 'scale(' + scale + ')';
+        startDistance = moveDistance;
+      }
+    });
+
+    function getDistance(touch1, touch2) {
+      var dx = touch1.clientX - touch2.clientX;
+      var dy = touch1.clientY - touch2.clientY;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
     // 获取缓存的openId
     this.getCookieOpenId();
 
@@ -89,8 +113,8 @@ export default {
 
 
     // 在组件挂载后初始化签名画布
-    this.originWidth = this.$refs.canvas.width
-    this.originHeight = this.$refs.canvas.height
+    // this.originWidth = window.width+500
+    // this.originHeight = window.height+500
     this.signaturePad = new SignaturePad(this.$refs.canvas);
   },
   created() {
@@ -127,6 +151,9 @@ export default {
 
     },
     showCanvas() {
+      let cvs = document.getElementById("cvs")
+      cvs.width = window.innerWidth  * 0.9
+      cvs.height = window.innerHeight * 0.4
       this.showSignCanvas = false;
       this.showGround = true;
     },
@@ -260,22 +287,19 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 
 .landscape-signature {
-  width: 80vh;
-  height: 80vw;
   border-radius: 5px;
   background-color: white;
   z-index: 99;
   border: 1px #5a5e66 solid;
   position: fixed;
-  top: 120px; /* 或者您想要的距离底部的像素值 */
-  left: -50px; /* 将按钮放置在页面水平中间 */
-  //transform: translateY(-50%);
-  transform: rotate(90deg);
+  margin: 20px;
+  bottom: 0px; /* 或者您想要的距离底部的像素值 */
+  left: 0px; /* 将按钮放置在页面水平中间 */
 }
 
 .landscape-canvas {
-  width: 80vh;
-  height: 65vw;
+  position:relative;
+  z-index:0;
 }
 
 #app {
@@ -292,7 +316,7 @@ export default {
   width: 50%;
   /* 固定按钮到底部 */
   position: fixed;
-  bottom: 20px; /* 或者您想要的距离底部的像素值 */
+  bottom: 10px; /* 或者您想要的距离底部的像素值 */
   left: 50%; /* 将按钮放置在页面水平中间 */
   transform: translateX(-50%);
 }
@@ -312,7 +336,4 @@ export default {
   transition: transform 0.3s ease;
 }
 
-.scalable:hover {
-  transform: scale(1.2);
-}
 </style>

@@ -11,10 +11,12 @@
       <div style="margin-bottom: 10px"></div>
     </div>
     <div class="pdf-preview scalable" id="myDiv">
-      <pdf
-        :src="this.templateUrl"
-        :scale="20"
-        :enable-browser-style="true"
+      <pdf v-for="i in numPages"
+           :key="i"
+           :src="templateUrl"
+           :page="i"
+           :scale="20"
+           :enable-browser-style="true"
       ></pdf>
     </div>
     <div class="fixed-button" :hidden="signButton">
@@ -43,6 +45,7 @@ export default {
       nickname: "",
       code: "",
       templateUrl: "",
+      numPages: null,
       showGround: false,
       showSignCanvas: true,
       signatureData: null, // 用于存储签名的数据
@@ -120,6 +123,17 @@ export default {
   created() {
   },
   methods: {
+
+    getNumPages(url) {
+      let loadingTask = pdf.createLoadingTask(url)
+      // var loadingTask = this.pdf.default.createLoadingTask(url)
+      loadingTask.promise.then(pdf => {
+        this.templateUrl = loadingTask
+        this.numPages = pdf.numPages
+      }).catch((err) => {
+        console.error('pdf加载失败')
+      })
+    },
 
     saveContract() {
 
@@ -263,6 +277,7 @@ export default {
       getContractTemplate(data).then(res => {
         this.templateUrl = res.data.templateUrl
         this.loadPdfDoc(this.templateUrl);
+        this.getNumPages(res.data.templateUrl);
 
         if (res.data.type === "2") {
           this.signButton = true;

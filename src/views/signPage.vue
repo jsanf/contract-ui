@@ -66,26 +66,26 @@ export default {
   async mounted() {
 
 
-    // // 获取缓存的openId
-    // this.getCookieOpenId();
-    //
-    // this.code = this.$route.query && this.$route.query.code || '';
-    //
-    // // 获取用户信息
-    // console.log(this.openId)
-    // if (this.openId.length === 0 && this.code.length > 0) {
-    //   await this.getWxUserInfo(this.code)
-    //   return;
-    // }
-    //
-    // // 获取code
-    // if (this.openId.length <= 0 && (this.code === "" || this.code === undefined || this.code == null)) {
-    //   this.getCode();
-    //   return;
-    // }
+    // 获取缓存的openId
+    this.getCookieOpenId();
+
+    this.code = this.$route.query && this.$route.query.code || '';
+
+    // 获取用户信息
+    console.log(this.openId)
+    if (this.openId.length === 0 && this.code.length > 0) {
+      await this.getWxUserInfo(this.code)
+      return;
+    }
+
+    // 获取code
+    if (this.openId.length <= 0 && (this.code === "" || this.code === undefined || this.code == null)) {
+      this.getCode();
+      return;
+    }
 
     // 获取当前开启的合同模版
-    await this.getContractTemplate({openid: "1"});
+    await this.getContractTemplate({openid: this.openId});
 
 
     // 在组件挂载后初始化签名画布

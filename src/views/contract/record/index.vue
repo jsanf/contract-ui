@@ -55,17 +55,17 @@
       <!--          v-hasPermi="['contract:record:edit']"-->
       <!--        >修改</el-button>-->
       <!--      </el-col>-->
-      <!--      <el-col :span="1.5">-->
-      <!--        <el-button-->
-      <!--          type="danger"-->
-      <!--          plain-->
-      <!--          icon="el-icon-delete"-->
-      <!--          size="mini"-->
-      <!--          :disabled="multiple"-->
-      <!--          @click="handleDelete"-->
-      <!--          v-hasPermi="['contract:record:remove']"-->
-      <!--        >删除</el-button>-->
-      <!--      </el-col>-->
+            <el-col :span="1.5">
+              <el-button
+                type="danger"
+                plain
+                icon="el-icon-delete"
+                size="mini"
+                :disabled="multiple"
+                @click="handleDelete"
+                v-hasPermi="['contract:record:remove']"
+              >删除</el-button>
+            </el-col>
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -81,8 +81,8 @@
     </el-row>
 
     <el-table v-loading="loading" :data="recordList" @selection-change="handleSelectionChange">
-      <!--      <el-table-column type="selection" width="55" align="center" />-->
-      <!--      <el-table-column label="序号" align="center" prop="id" />-->
+            <el-table-column type="selection" width="55" align="center" />
+<!--            <el-table-column label="序号" align="center" prop="id" />-->
       <el-table-column label="合同模版" align="center" prop="templateName"/>
       <el-table-column label="签署日期" align="center" prop="signTime" width="180">
         <template slot-scope="scope">
@@ -315,7 +315,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除签署记录编号为"' + ids + '"的数据项？').then(function () {
+      this.$modal.confirm('是否确认删除选中的数据项？').then(function () {
         return delRecord(ids);
       }).then(() => {
         this.getList();

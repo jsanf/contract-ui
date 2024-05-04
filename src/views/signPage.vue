@@ -1,23 +1,27 @@
 <template>
-  <div class="pdf-preview">
-    <pdf
-      :src="this.templateUrl"
-    ></pdf>
-    <div class="fixed-button" :hidden="signButton">
-      <el-button class="primaryButton" @click="showCanvas()" type="info">签名</el-button>
-      <el-button class="primaryButton" @click="saveContract()" type="primary">提交</el-button>
-    </div>
+  <div>
 
     <div class="backGroud" v-if="showGround" @click="closeSign"></div>
 
     <div class="landscape-signature" :hidden="showSignCanvas">
       <canvas ref="canvas" class="landscape-canvas"></canvas>
+      <br>
       <el-button @click="clearSignature" type="danger">清除</el-button>
       <el-button @click="saveSignature" type="primary">确认</el-button>
       <div style="margin-bottom: 10px"></div>
     </div>
+    <div class="pdf-preview scalable">
+      <pdf
+        :src="this.templateUrl"
+        :scale="2"
+        :enable-browser-style="true"
+      ></pdf>
+    </div>
+    <div class="fixed-button" :hidden="signButton">
+      <el-button class="primaryButton" @click="showCanvas()" type="info">签名</el-button>
+      <el-button class="primaryButton" @click="saveContract()" type="primary">提交</el-button>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -222,7 +226,7 @@ export default {
         Cookies.set("wxUserInfoNickname", res.data.nickname);
 
         this.openId = res.data.openid
-        this.nickname =  res.data.nickname
+        this.nickname = res.data.nickname
         this.goHomeUrl();
       }).catch(e => {
         console.log(e)
@@ -256,18 +260,22 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 
 .landscape-signature {
+  width: 80vh;
+  height: 80vw;
   border-radius: 5px;
   background-color: white;
   z-index: 99;
   border: 1px #5a5e66 solid;
   position: fixed;
-  bottom: 20px; /* 或者您想要的距离底部的像素值 */
-  left: 50%; /* 将按钮放置在页面水平中间 */
-  transform: translateX(-50%);
+  top: 120px; /* 或者您想要的距离底部的像素值 */
+  left: -50px; /* 将按钮放置在页面水平中间 */
+  //transform: translateY(-50%);
+  transform: rotate(90deg);
 }
 
 .landscape-canvas {
-  width: 350px;
+  width: 80vh;
+  height: 65vw;
 }
 
 #app {
@@ -302,5 +310,13 @@ export default {
   opacity: 0.5;
   bottom: 0; /* 或者您想要的距离底部的像素值 */
   left: 0; /* 将按钮放置在页面水平中间 */
+}
+
+.scalable {
+  transition: transform 0.3s ease;
+}
+
+.scalable:hover {
+  transform: scale(1.2);
 }
 </style>
